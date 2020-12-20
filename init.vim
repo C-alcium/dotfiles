@@ -31,7 +31,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh'
     \ }
 
-" Utilities
+" Goyo mode for distraction free writing
 Plug 'junegunn/goyo.vim'
 
 call plug#end()
@@ -120,4 +120,13 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+
+" -------------------------------------
+" 		 Alignment  
+" -------------------------------------
+" Recommended default configuration for vim-easy-align
+" Start an alignment with ga 
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
