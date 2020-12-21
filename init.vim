@@ -35,9 +35,6 @@ Plug 'junegunn/goyo.vim'
 " Jump to a spot in the current view 
 Plug 'easymotion/vim-easymotion'
 
-" Automatically close braces, brackets and parenthesis
-Plug 'rstacruz/vim-closer'
-
 " Git gutter to highlight what has changed inside a file
 Plug 'airblade/vim-gitgutter'
 
@@ -59,6 +56,25 @@ Plug 'othree/yajs.vim'
 
 call plug#end()
 
+
+" -------------------------------------
+" 	 CoC configuration 	
+" -------------------------------------
+let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur' 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
+
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
+
+" Allow using tab for autocomplete
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
 " -------------------------------------
 " 		Visual 
@@ -108,16 +124,6 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" Allow using tab for autocomplete
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
 
 " -------------------------------------
 " 		 Terminal & Splits 
@@ -161,4 +167,13 @@ nmap ga <Plug>(EasyAlign)
 " The rest of the bindings are pretty pointless, so f2 basically does
 " everything
 map <Leader>f <Plug>(easymotion-overwin-f2)
+
+
+" -------------------------------------
+" 		 Vue  
+" -------------------------------------
+let g:LanguageClient_serverCommands = {
+    \ 'vue': ['vls']
+    \ }
+
 
