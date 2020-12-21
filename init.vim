@@ -60,7 +60,7 @@ call plug#end()
 " -------------------------------------
 " 	 CoC configuration 	
 " -------------------------------------
-let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur' 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
+let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur', 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
 
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
