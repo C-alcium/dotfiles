@@ -19,6 +19,24 @@ Plug 'scrooloose/nerdtree'
 " LSP 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}  
 
+" Goyo mode for distraction free writing
+Plug 'junegunn/goyo.vim'
+
+" in-window navigation
+Plug 'easymotion/vim-easymotion'
+
+" Automatically close braces, brackets and parenthesis
+Plug 'rstacruz/vim-closer'
+
+" Git gutter to highlight what has changed inside a file
+Plug 'airblade/vim-gitgutter'
+
+" Language client 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh'
+    \ }
+
 " Haskell
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'Shougo/unite.vim'
@@ -26,13 +44,8 @@ Plug 'ujihisa/unite-haskellimport'
 Plug 'itchyny/lightline.vim'
 Plug 'neovimhaskell/haskell-vim'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh'
-    \ }
-
-" Goyo mode for distraction free writing
-Plug 'junegunn/goyo.vim'
+" JavaScript
+Plug 'othree/yajs.vim'
 
 call plug#end()
 
@@ -125,8 +138,17 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 " -------------------------------------
 " 		 Alignment  
 " -------------------------------------
+
 " Recommended default configuration for vim-easy-align
 " Start an alignment with ga 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+
+" -------------------------------------
+" 		 Easy Motion  
+" -------------------------------------
+" The rest of the bindings are pretty pointless, so f2 basically does
+" everything
+map <Leader>f <Plug>(easymotion-overwin-f2)
 
