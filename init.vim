@@ -4,7 +4,17 @@ filetype plugin indent on
 
 call plug#begin('~/.vim/plugged') 
 
-" Install Airline
+" Fugitive gives a simple git interface accessible via :G or :Git
+Plug 'tpope/vim-fugitive'
+
+" Creates a startup page to remind me what I was doing
+Plug 'mhinz/vim-startify'
+
+" Fuzzy finder for searching various things
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Status bar at the bottom containing various useful contextual info 
 Plug 'vim-airline/vim-airline'
 
 " Theme
@@ -13,7 +23,7 @@ Plug 'joshdick/onedark.vim'
 " Alignment 
 Plug 'junegunn/vim-easy-align'
 
-" File Tree
+" File Tree, :e . 
 Plug 'scrooloose/nerdtree'
 
 " LSP 
@@ -22,7 +32,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " Goyo mode for distraction free writing
 Plug 'junegunn/goyo.vim'
 
-" in-window navigation
+" Jump to a spot in the current view 
 Plug 'easymotion/vim-easymotion'
 
 " Automatically close braces, brackets and parenthesis
