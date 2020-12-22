@@ -1,11 +1,15 @@
 " Default settings before we go anywhere
 syntax on 
 filetype plugin indent on
+set conceallevel=0
 
 call plug#begin('~/.vim/plugged') 
 
 " Fugitive gives a simple git interface accessible via :G or :Git
 Plug 'tpope/vim-fugitive'
+
+" Useful plugin for managing surroundings and so on
+Plug 'tpope/vim-surround'
 
 " Creates a startup page to remind me what I was doing
 Plug 'mhinz/vim-startify'
@@ -76,6 +80,14 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunctio
+
 " -------------------------------------
 " 		Visual 
 " -------------------------------------
@@ -90,11 +102,9 @@ set number
 " Set theme
 colorscheme onedark 
 
-
 " -------------------------------------
-" 		Fixes 
+" 		Fixes & Useful bindings
 " -------------------------------------
-
 " Make the mouse work normally
 set mouse=a 
 
@@ -110,14 +120,6 @@ set shiftwidth=2  " column offset when using keys '>' and '<' in normal mode.
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunctio
-
 " Get rid of arrow keys
 noremap <Up> <Nop>
 noremap <Down> <Nop>
@@ -125,7 +127,18 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 " Define command to navigate to .init 
-command -nargs=0 Econfig :e ~/.config/nvim/init.vim
+command! -nargs=0 Econf :e $MYVIMRC 
+
+" Define another command to reload it
+command! -nargs=0 Rconf :source $MYVIMRC
+
+" Define shortcuts for fuzzy finding like VSCode
+" Files: 
+nnoremap <C-p> :FZF<CR>
+
+" Text: 
+nnoremap <C-f> :Lines<CR>
+
 
 " -------------------------------------
 " 		 Terminal & Splits 
@@ -140,6 +153,22 @@ command -nargs=0 Econfig :e ~/.config/nvim/init.vim
 " Make swapping between splits easier via using the tmux binding
 nnoremap <C-b> <C-w>
 
+" -------------------------------------
+" 		 Alignment  
+" -------------------------------------
+
+" Recommended default configuration for vim-easy-align
+" Start an alignment with ga 
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" -------------------------------------
+" 		 Easy Motion  
+" -------------------------------------
+" The rest of the bindings are pretty pointless, so f2 basically does
+" everything
+
+map <Leader>f <Plug>(easymotion-overwin-f2)
 
 " -------------------------------------
 " 		 Haskell Configuration  
@@ -152,30 +181,9 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-
-" -------------------------------------
-" 		 Alignment  
-" -------------------------------------
-
-" Recommended default configuration for vim-easy-align
-" Start an alignment with ga 
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
-
-" -------------------------------------
-" 		 Easy Motion  
-" -------------------------------------
-" The rest of the bindings are pretty pointless, so f2 basically does
-" everything
-map <Leader>f <Plug>(easymotion-overwin-f2)
-
-
 " -------------------------------------
 " 		 Vue  
 " -------------------------------------
 let g:LanguageClient_serverCommands = {
     \ 'vue': ['vls']
     \ }
-
-
