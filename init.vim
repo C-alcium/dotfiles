@@ -124,6 +124,8 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" Define command to navigate to .init 
+command -nargs=0 Econfig :e ~/.config/nvim/init.vim
 
 " -------------------------------------
 " 		 Terminal & Splits 
