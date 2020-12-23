@@ -58,6 +58,7 @@ Plug 'Shougo/unite.vim'
 Plug 'ujihisa/unite-haskellimport'  
 Plug 'itchyny/lightline.vim'
 Plug 'neovimhaskell/haskell-vim'
+Plug 'jaspervdj/stylish-haskell'
 
 " JavaScript
 Plug 'othree/yajs.vim'
@@ -191,6 +192,9 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+" Map stylish haskell file-formatting to CTRL + Shift + L 
+nmap <C-S-l> :%!stylish-haskell<CR>
 
 " -------------------------------------
 " 		 Vue  
