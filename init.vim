@@ -48,6 +48,10 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh'
     \ }
 
+" Rooter, helps locate the project root for use with the fuzzy finder
+Plug 'airblade/vim-rooter'
+
+
 " Haskell
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'Shougo/unite.vim'
@@ -105,6 +109,9 @@ colorscheme onedark
 " -------------------------------------
 " 		Fixes & Useful bindings
 " -------------------------------------
+" Stop startify from messing with project roots, which allows rooter to work
+let g:startify_change_to_dir = 0
+
 " Make the mouse work normally
 set mouse=a 
 
@@ -133,11 +140,15 @@ command! -nargs=0 Econf :e $MYVIMRC
 command! -nargs=0 Rconf :source $MYVIMRC
 
 " Define shortcuts for fuzzy finding like VSCode
+
 " Files: 
 nnoremap <C-p> :FZF<CR>
 
 " Text: 
 nnoremap <C-f> :Lines<CR>
+
+" Allow rooter to find project roots
+let g:rooter_patterns = ['.git', 'package.json', 'stack.yaml']
 
 
 " -------------------------------------
