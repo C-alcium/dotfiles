@@ -18,11 +18,9 @@ Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Status bar at the bottom containing various useful contextual info 
-Plug 'vim-airline/vim-airline'
-
-" Theme
+" Themes
 Plug 'joshdick/onedark.vim'
+Plug 'artanikin/vim-synthwave84'
 
 " Alignment 
 Plug 'junegunn/vim-easy-align'
@@ -32,9 +30,6 @@ Plug 'scrooloose/nerdtree'
 
 " LSP 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}  
-
-" Goyo mode for distraction free writing
-Plug 'junegunn/goyo.vim'
 
 " Jump to a spot in the current view 
 Plug 'easymotion/vim-easymotion'
@@ -51,14 +46,13 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Rooter, helps locate the project root for use with the fuzzy finder
 Plug 'airblade/vim-rooter'
 
-
 " Haskell
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'Shougo/unite.vim'
 Plug 'ujihisa/unite-haskellimport'  
 Plug 'itchyny/lightline.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'jaspervdj/stylish-haskell'
+Plug 'itchyny/vim-haskell-indent'
 
 " JavaScript
 Plug 'othree/yajs.vim'
@@ -102,14 +96,16 @@ set fillchars+=vert:│
 set termguicolors
 
 " Set line numbers 
-set number
+set relativenumber 
 
 " Set theme
-colorscheme onedark 
-
+colorscheme synthwave84 
 " -------------------------------------
 " 		Fixes & Useful bindings
 " -------------------------------------
+" Ignore stuff ignored by .gitignore
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+
 " Stop startify from messing with project roots, which allows rooter to work
 let g:startify_change_to_dir = 0
 
@@ -150,7 +146,6 @@ nnoremap <C-f> :Lines<CR>
 
 " Allow rooter to find project roots
 let g:rooter_patterns = ['.git', 'package.json', 'stack.yaml']
-
 
 " -------------------------------------
 " 		 Terminal & Splits 
