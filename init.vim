@@ -1,9 +1,10 @@
 " Default settings before we go anywhere
-syntax on 
+syntax on
 filetype plugin indent on
 set conceallevel=0
+set guifont="Fira Nerd Code"
 
-call plug#begin('~/.vim/plugged') 
+call plug#begin('~/.vim/plugged')
 
 " Fugitive gives a simple git interface accessible via :G or :Git
 Plug 'tpope/vim-fugitive'
@@ -22,22 +23,25 @@ Plug 'junegunn/fzf.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'artanikin/vim-synthwave84'
 
-" Alignment 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Alignment
 Plug 'junegunn/vim-easy-align'
 
-" File Tree, :e . 
+" File Tree, :e .
 Plug 'scrooloose/nerdtree'
 
-" LSP 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}  
+" LSP
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-" Jump to a spot in the current view 
+" Jump to a spot in the current view
 Plug 'easymotion/vim-easymotion'
 
 " Git gutter to highlight what has changed inside a file
 Plug 'airblade/vim-gitgutter'
 
-" Language client 
+" Language client
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh'
@@ -48,8 +52,7 @@ Plug 'airblade/vim-rooter'
 
 " Haskell
 Plug 'Shougo/unite.vim'
-Plug 'ujihisa/unite-haskellimport'  
-Plug 'itchyny/lightline.vim'
+Plug 'ujihisa/unite-haskellimport'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'jaspervdj/stylish-haskell'
 Plug 'itchyny/vim-haskell-indent'
@@ -57,11 +60,14 @@ Plug 'itchyny/vim-haskell-indent'
 " JavaScript
 Plug 'othree/yajs.vim'
 
+" Icons
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 
 " -------------------------------------
-" 	 CoC configuration 	
+" 	 CoC configuration
 " -------------------------------------
 let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur', 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
 
@@ -88,18 +94,29 @@ function! s:show_documentation()
 endfunctio
 
 " -------------------------------------
-" 		Visual 
+" 		Visual
 " -------------------------------------
 set fillchars+=vert:│
 
-" Enable non-ugly colours 
+" Enable non-ugly colours
 set termguicolors
 
-" Set line numbers 
-set relativenumber 
+" Set line numbers
+set relativenumber
+set number
 
 " Set theme
-colorscheme synthwave84 
+colorscheme synthwave84
+
+" Enable the status line
+let g:airline#extensions#tabline#enabled = 1
+
+" Set airline theme
+let g:airline_theme='bubblegum'
+
+" Set airline icons
+let g:airline_powerline_fonts = 1
+
 " -------------------------------------
 " 		Fixes & Useful bindings
 " -------------------------------------
@@ -110,17 +127,17 @@ let $FZF_DEFAULT_COMMAND = 'rg --files'
 let g:startify_change_to_dir = 0
 
 " Make the mouse work normally
-set mouse=a 
+set mouse=a
 
 " Use spaces and not tabs
-set expandtab     
+set expandtab
 set tabstop=2     " Sets tab character to correspond to x columns.
                   " x spaces are automatically converted to <tab>.
                   " If expandtab option is on each <tab> character is converted to x spaces.
 set softtabstop=2 " column offset when PRESSING the tab key or the backspace key.
 set shiftwidth=2  " column offset when using keys '>' and '<' in normal mode.
 
-" Allow for documentation lookups  
+" Allow for documentation lookups
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -130,25 +147,25 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" Define command to navigate to .init 
-command! -nargs=0 Econf :e $MYVIMRC 
+" Define command to navigate to .init
+command! -nargs=0 Econf :e $MYVIMRC
 
 " Define another command to reload it
 command! -nargs=0 Rconf :source $MYVIMRC
 
 " Define shortcuts for fuzzy finding like VSCode
 
-" Files: 
+" Files:
 nnoremap <C-p> :FZF<CR>
 
-" Text: 
+" Text:
 nnoremap <C-f> :Lines<CR>
 
 " Allow rooter to find project roots
 let g:rooter_patterns = ['.git', 'package.json', 'stack.yaml']
 
 " -------------------------------------
-" 		 Terminal & Splits 
+" 		 Terminal & Splits
 " -------------------------------------
 
 " Fix the terminal escape key
@@ -161,16 +178,16 @@ let g:rooter_patterns = ['.git', 'package.json', 'stack.yaml']
 nnoremap <C-b> <C-w>
 
 " -------------------------------------
-" 		 Alignment  
+" 		 Alignment
 " -------------------------------------
 
 " Recommended default configuration for vim-easy-align
-" Start an alignment with ga 
+" Start an alignment with ga
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " -------------------------------------
-" 		 Easy Motion  
+" 		 Easy Motion
 " -------------------------------------
 " The rest of the bindings are pretty pointless, so f2 basically does
 " everything
@@ -178,7 +195,7 @@ nmap ga <Plug>(EasyAlign)
 map <Leader>f <Plug>(easymotion-overwin-f2)
 
 " -------------------------------------
-" 		 Haskell Configuration  
+" 		 Haskell Configuration
 " -------------------------------------
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
@@ -188,12 +205,28 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-" Map stylish haskell file-formatting to CTRL + Shift + L 
+" Map stylish haskell file-formatting to CTRL + Shift + L
 nmap <C-S-l> :%!stylish-haskell<CR>
 
 " -------------------------------------
-" 		 Vue  
+" 		 Vue
 " -------------------------------------
 let g:LanguageClient_serverCommands = {
     \ 'vue': ['vls']
     \ }
+
+" -------------------------------------
+" 		 Trim Whitespace
+" -------------------------------------
+
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+" Make a command for trimming whitespace
+command! TrimWhitespace call TrimWhitespace()
+
+" Automatically call this function on save.
+autocmd BufWritePre * :call TrimWhitespace()
