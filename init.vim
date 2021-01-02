@@ -18,6 +18,7 @@ Plug 'mhinz/vim-startify'
 " Fuzzy finder for searching various things
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'monkoose/fzf-hoogle.vim'
 
 " Themes
 Plug 'joshdick/onedark.vim'
@@ -73,6 +74,11 @@ let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur', 'coc-emoji', 'coc-esli
 
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" Rename word in open buffers
+nmap <leader>rr <Plug>(coc-rename)
+
+" Open a buffer containing all the instances of the word the cursor is on
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Allow using tab for autocomplete
 function! s:check_back_space() abort
@@ -92,6 +98,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunctio
+
+nmap <leader>t <Plug>(coc-codelens-action)
 
 " -------------------------------------
 " 		Visual
@@ -230,3 +238,4 @@ command! TrimWhitespace call TrimWhitespace()
 
 " Automatically call this function on save.
 autocmd BufWritePre * :call TrimWhitespace()
+
