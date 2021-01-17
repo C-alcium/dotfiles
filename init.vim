@@ -231,6 +231,8 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 nmap <C-S-l> :%!stylish-haskell<CR>
 
 " Define region block for SyntaxRange
+" Note: In order for this to work it must be shifted to a syntax
+" file loaded after Haskell
 call SyntaxRange#Include('\[hsx|', '|\]', 'html', 'NonText')
 
 " -------------------------------------
