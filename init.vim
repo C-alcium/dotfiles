@@ -3,6 +3,7 @@ syntax on
 filetype plugin indent on
 set conceallevel=0
 set guifont="Fira Nerd Code"
+set showtabline=0
 
 call plug#begin('~/.vim/plugged')
 
@@ -51,6 +52,9 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Rooter, helps locate the project root for use with the fuzzy finder
 Plug 'airblade/vim-rooter'
 
+" Syntax Range, for defining a region in which the syntax is different
+Plug 'inkarkat/vim-SyntaxRange'
+
 " Haskell
 Plug 'Shougo/unite.vim'
 Plug 'ujihisa/unite-haskellimport'
@@ -60,6 +64,10 @@ Plug 'itchyny/vim-haskell-indent'
 
 " JavaScript
 Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
+
+" Vue
+Plug 'leafoftree/vim-vue-plugin'
 
 " Icons
 Plug 'ryanoasis/vim-devicons'
@@ -70,7 +78,7 @@ call plug#end()
 " -------------------------------------
 " 	 CoC configuration
 " -------------------------------------
-let g:coc_global_extensions = [ 'coc-pairs', 'coc-vetur', 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
+let g:coc_global_extensions = [ 'coc-vetur', 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml']
 
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -125,6 +133,9 @@ let g:airline_theme='bubblegum'
 " Set airline icons
 let g:airline_powerline_fonts = 1
 
+" Start NerdTree and move the cursor back
+autocmd VimEnter * NERDTree | wincmd p
+
 " -------------------------------------
 " 		Fixes & Useful bindings
 " -------------------------------------
@@ -160,6 +171,9 @@ command! -nargs=0 Econf :e $MYVIMRC
 
 " Define another command to reload it
 command! -nargs=0 Rconf :source $MYVIMRC
+
+" Define a command to delete the current file
+command! -nargs=0 Delcurrent :!rm %
 
 " Define shortcuts for fuzzy finding like VSCode
 
@@ -216,6 +230,9 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 " Map stylish haskell file-formatting to CTRL + Shift + L
 nmap <C-S-l> :%!stylish-haskell<CR>
 
+" Define region block for SyntaxRange
+call SyntaxRange#Include('\[hsx|', '|\]', 'html', 'NonText')
+
 " -------------------------------------
 " 		 Vue
 " -------------------------------------
@@ -238,4 +255,3 @@ command! TrimWhitespace call TrimWhitespace()
 
 " Automatically call this function on save.
 autocmd BufWritePre * :call TrimWhitespace()
-
